@@ -4,9 +4,14 @@ class Stack
   public function isEmpty(){
     return true;
   }
-  public function push(){
+
+  private $value = 0;
+
+  public function push($value){
+    $this->value = $value;
   }
+
   public function top(){
-    return 1;
+    return $this->value;
   }
 }
