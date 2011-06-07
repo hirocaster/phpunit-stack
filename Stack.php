@@ -5,17 +5,16 @@ class Stack
     return $this->size === 0;
   }
 
-  private $value = 0;
+  private $value = array();
   private $size = 0;
 
   public function push($value){
-    $this->value = $value;
-    ++$this->size;
+    $this->value[$this->size++] = $value;
   }
 
   public function top(){
     $this->emptyCheck();
-    return $this->value;
+    return $this->value[$this->size - 1];
   }
 
   public function size(){
