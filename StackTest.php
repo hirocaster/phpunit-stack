@@ -24,4 +24,13 @@ class StackTest extends PHPUnit_Framework_TestCase
     $this->stack->push(2);
     $this->assertEquals(2, $this->stack->size());
   }
+
+  public function testEmptyPop(){
+    try{
+      $this->stack->pop();
+      $this->fail();
+    } catch(EmptyStackException $e){
+
+    }
+  }
 }

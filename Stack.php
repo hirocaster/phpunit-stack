@@ -20,4 +20,12 @@ class Stack
   public function size(){
     return $this->size;
   }
+
+  public function pop(){
+    throw new EmptyStackException();
+  }
+}
+
+class EmptyStackException extends Exception
+{
 }
