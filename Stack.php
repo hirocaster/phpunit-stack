@@ -14,9 +14,7 @@ class Stack
   }
 
   public function top(){
-    if($this->isEmpty()){
-      throw new EmptyStackException();
-    }
+    $this->emptyCheck();
     return $this->value;
   }
 
@@ -25,10 +23,14 @@ class Stack
   }
 
   public function pop(){
+    $this->emptyCheck();
+    --$this->size;
+  }
+
+  private function emptyCheck() {
     if($this->isEmpty()){
       throw new EmptyStackException();
     }
-    --$this->size;
   }
 }
 
