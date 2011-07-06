@@ -16,10 +16,10 @@ def growl(message)
 
   title = message.find { |e| /FAILURES/ =~ e } ? "FAILURES" : "PASS"
     if title == "FAILURES"
-        image = "~/.watchr_images/failed.png"
+        image = ".watchr_images/failed.png"
         info = /\x1b\[37;41m\x1b\[2K(.*)/.match(message[1])[1]
     else
-        image = "~/.watchr_images/passed.png"
+        image = ".watchr_images/passed.png"
         info = /\x1b\[30;42m\x1b\[2K(.*)/.match(message[1])[1]
     end
 
