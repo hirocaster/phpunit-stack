@@ -10,9 +10,11 @@ def run(cmd)
 end
 
 def growl(message)
-    puts(message)
-    message = message.split("\n").last(3);
-    growlnotify = `which growlnotify`.chomp
+  puts(message)
+  message = message.split("\n").last(3);
+  osn = Config::CONFIG["target_os"].downcase
+  growlnotify = `which growlnotify`.chomp if osn.include?("darwin")
+  growlnotify = `which notify-send`.chomp if osn.include?("linux")
 
   title = message.find { |e| /FAILURES/ =~ e } ? "FAILURES" : "PASS"
     if title == "FAILURES"
@@ -23,6 +25,7 @@ def growl(message)
         info = /\x1b\[30;42m\x1b\[2K(.*)/.match(message[1])[1]
     end
 
-  options = "-w -n Watchr --image '#{File.expand_path(image)}' --html '#{title}'  -m '#{info}'"
+  options = "-w -n Watchr --image '#{File.expand_path(image)}' --html '#{title}'  -m '#{info}'" if osn.include?("darwin")
+  options = "-i '#{File.expand_path(image)}' '#{title}' '#{info}'" if osn.include?("linux")
   system %(#{growlnotify} #{options} &)
 end
