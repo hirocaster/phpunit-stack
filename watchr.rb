@@ -19,13 +19,15 @@ def growl(message)
   title = message.find { |e| /FAILURES/ =~ e } ? "FAILURES" : "PASS"
     if title == "FAILURES"
         image = ".watchr_images/failed.png"
+        tag  = "<span background=\"darkred\">"
         info = /\x1b\[37;41m\x1b\[2K(.*)/.match(message[1])[1]
     else
         image = ".watchr_images/passed.png"
+        tag   = "<span background=\"darkgreen\">"
         info = /\x1b\[30;42m\x1b\[2K(.*)/.match(message[1])[1]
     end
 
   options = "-w -n Watchr --image '#{File.expand_path(image)}' --html '#{title}'  -m '#{info}'" if osn.include?("darwin")
-  options = "-i '#{File.expand_path(image)}' '#{title}' '#{info}'" if osn.include?("linux")
+  options = "-i '#{File.expand_path(image)}' '#{title}' '#{tag}#{info}</span>'" if osn.include?("linux")
   system %(#{growlnotify} #{options} &)
 end
